@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+self-feign:
+  url:
+    bili: https://v.api.aa1.cn
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    name: logs/pencil-spring.log
+  level:
+    org.pencil.feign.decoder.FeignResultDecoder: DEBUG
+
+spring:
+  application:
+    name: pencil-spring
