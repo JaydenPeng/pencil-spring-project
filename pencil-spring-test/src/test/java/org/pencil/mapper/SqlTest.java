@@ -1,5 +1,6 @@
 package org.pencil.mapper;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.pencil.test.TestApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
  * @Date 24 /07/01
  */
 @SpringBootTest(classes = TestApplication.class)
-public class SqlTest {
+class SqlTest {
 
     /**
      * Select by id.
@@ -23,5 +24,7 @@ public class SqlTest {
     @Sql(statements = "DELETE FROM user WHERE id = 1", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void selectById() {
         // 这里就是正常的增删改查
+        int id = 1;
+        Assertions.assertEquals(1, id);
     }
 }
