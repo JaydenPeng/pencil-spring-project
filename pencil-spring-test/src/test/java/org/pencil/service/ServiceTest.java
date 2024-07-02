@@ -17,7 +17,7 @@ import org.springframework.test.annotation.DirtiesContext;
  * @Date 24/07/01
  */
 @SpringBootTest(classes = TestApplication.class)
-public class ServiceTest {
+class ServiceTest {
 
     @MockBean
     private BiliFeignClient mockBiliFeignClient;
