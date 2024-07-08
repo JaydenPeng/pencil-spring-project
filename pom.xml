@@ -15,6 +15,7 @@
         <module>pencil-spring-common</module>
         <module>pencil-spring-test</module>
         <module>pencil-spring-cache</module>
+        <module>pencil-spring-thread</module>
     </modules>
 
     <properties>
