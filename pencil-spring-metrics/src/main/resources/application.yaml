@@ -1,0 +1,14 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# 此项配置决定监控端口,如果没有配置,默认是server.port端口
+#  server:
+#    port: 6888
+  endpoint:
+    prometheus:
+      enabled: true
+
+server:
+  port: 8899
