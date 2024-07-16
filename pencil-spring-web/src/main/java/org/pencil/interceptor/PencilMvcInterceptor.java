@@ -1,6 +1,6 @@
 package org.pencil.interceptor;
 
-import cn.hutool.core.net.Ipv4Util;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.pencil.constant.Constant;
@@ -31,8 +31,10 @@ public class PencilMvcInterceptor implements HandlerInterceptor {
 
         ComContext comContext = new ComContext();
 
-        Arrays.stream(cookies).filter(cookie -> Constant.USER_ID.equalsIgnoreCase(cookie.getName()))
-                .findFirst().ifPresent(cookie -> comContext.setUserId(cookie.getValue()));
+        if (ArrayUtil.isNotEmpty(cookies)) {
+            Arrays.stream(cookies).filter(cookie -> Constant.USER_ID.equalsIgnoreCase(cookie.getName()))
+                    .findFirst().ifPresent(cookie -> comContext.setUserId(cookie.getValue()));
+        }
 
         comContext.setTraceId(Optional.ofNullable(request.getHeader(Constant.TRACE_ID)).orElse(UUID.randomUUID().toString()));
 
