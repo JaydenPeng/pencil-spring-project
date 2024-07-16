@@ -3,6 +3,7 @@ package org.pencil.feign.decoder;
 import feign.*;
 import feign.codec.Decoder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.pencil.constant.Constant;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 
@@ -25,7 +26,10 @@ public class FeignResultDecoder implements Decoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
-        String responseStr = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
+        String responseStr = Strings.EMPTY;
+        if (response.body() != null) {
+            responseStr = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
+        }
 
         if (log.isDebugEnabled()) {
             RequestTemplate requestTemplate = response.request().requestTemplate();
