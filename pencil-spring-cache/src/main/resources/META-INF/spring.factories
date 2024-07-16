@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.pencil.config.CacheConfig
+  org.pencil.config.CacheConfig,\
+  org.pencil.config.RedisConfig
