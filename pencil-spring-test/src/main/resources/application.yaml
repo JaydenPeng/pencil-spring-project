@@ -4,6 +4,7 @@ server:
 self-feign:
   url:
     bili: https://v.api.aa1.cn
+    local: http://localhost:8080
 
 logging:
   config: classpath:logback-spring.xml
