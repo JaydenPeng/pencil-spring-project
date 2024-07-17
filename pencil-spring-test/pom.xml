@@ -22,17 +22,19 @@
         <dependency>
             <groupId>org.pencil</groupId>
             <artifactId>pencil-spring-feign</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.pencil</groupId>
             <artifactId>pencil-spring-web</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

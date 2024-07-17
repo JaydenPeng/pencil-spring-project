@@ -16,3 +16,22 @@ logging:
 spring:
   application:
     name: pencil-spring
+
+knife4j:
+  enable: true
+  openapi:
+    title: Knife4j官方文档
+    description: "pencil项目文档"
+    email: pencil@gmail.com
+    concat: pencil
+    url: https://localhost:8080
+    version: v4.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      test1:
+        group-name: 分组名称
+        api-rule: package
+        api-rule-resources:
+          - org.pencil.test.controller
