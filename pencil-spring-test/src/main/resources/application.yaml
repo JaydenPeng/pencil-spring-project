@@ -17,21 +17,20 @@ spring:
   application:
     name: pencil-spring
 
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: org.pencil.test
+# knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true
-  openapi:
-    title: Knife4j官方文档
-    description: "pencil项目文档"
-    email: pencil@gmail.com
-    concat: pencil
-    url: https://localhost:8080
-    version: v4.0
-    license: Apache 2.0
-    license-url: https://stackoverflow.com/
-    terms-of-service-url: https://stackoverflow.com/
-    group:
-      test1:
-        group-name: 分组名称
-        api-rule: package
-        api-rule-resources:
-          - org.pencil.test.controller
+  setting:
+    language: zh_cn
