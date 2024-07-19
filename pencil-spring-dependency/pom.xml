@@ -23,10 +23,15 @@
         <openfeign.version>3.1.3</openfeign.version>
         <knife4j.version>4.4.0</knife4j.version>
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <dynamic-datasource.version>4.3.0</dynamic-datasource.version>
+        <mybatis-mate.version>1.3.2-sp2</mybatis-mate.version>
+        <ahocorasick.version>0.6.3</ahocorasick.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!--<<spring boot>>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -34,6 +39,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+             <!--<<spring cloud alibaba>>-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -41,31 +48,64 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+             <!--<<工具类>>-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
             </dependency>
+
+            <!--<<spring cloud bootstrap>>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-bootstrap</artifactId>
                 <version>${bootstrap.version}</version>
             </dependency>
+
+            <!--<<openFeign组件>>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
                 <version>${openfeign.version}</version>
             </dependency>
+
+            <!--knife4j文档组件-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+
+            <!--<<数据库组件>>-->
+            <!--mybatis-plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <!--动态数据源-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+            <!--mybatis增强功能组件-->
+            <!-- spring boot 2.X 请用 1.3.2-sp2 版本 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-mate-starter</artifactId>
+                <version>${mybatis-mate.version}</version>
+            </dependency>
+            <!--敏感词-->
+            <dependency>
+                <groupId>org.ahocorasick</groupId>
+                <artifactId>ahocorasick</artifactId>
+                <version>${ahocorasick.version}</version>
+            </dependency>
+
+
+            <!--<<pencil-spring>>-->
             <dependency>
                 <groupId>org.pencil</groupId>
                 <artifactId>pencil-spring-common</artifactId>
