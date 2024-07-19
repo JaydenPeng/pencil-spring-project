@@ -3,7 +3,7 @@ package org.pencil.controller;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.pencil.test.TestApplication;
-import org.pencil.test.entity.resp.dto.UserDto;
+import org.pencil.test.entity.dto.UserDto;
 import org.pencil.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
