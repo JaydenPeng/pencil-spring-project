@@ -28,7 +28,6 @@
         <dependency>
             <groupId>org.pencil</groupId>
             <artifactId>pencil-spring-common</artifactId>
-            <version>${revision}</version>
         </dependency>
 
     </dependencies>

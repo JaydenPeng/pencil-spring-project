@@ -2,6 +2,7 @@ package org.pencil.feign.decoder;
 
 import feign.*;
 import feign.codec.Decoder;
+import io.prometheus.client.Counter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.pencil.constant.Constant;
@@ -19,9 +20,13 @@ import java.util.Optional;
 @Slf4j
 public class FeignResultDecoder implements Decoder {
 
+
     private final SpringDecoder springDecoder;
-    public FeignResultDecoder(SpringDecoder springDecoder) {
+    private final Counter feignCounter;
+
+    public FeignResultDecoder(SpringDecoder springDecoder, Counter feignCounter) {
         this.springDecoder = springDecoder;
+        this.feignCounter = feignCounter;
     }
 
     @Override
@@ -39,6 +44,13 @@ public class FeignResultDecoder implements Decoder {
                     requestTemplate.path(),endTime - startTime, requestTemplate.queries(),
                     Optional.ofNullable(requestTemplate.body()).map(String::new).orElse(null),
                     requestTemplate.headers(),responseStr);
+
+            try {
+                feignCounter.labels(requestTemplate.path(), String.valueOf(response.status())).inc();
+            } catch (Exception e) {
+                log.error("FeignResultDecoder feignCounter error", e);
+            }
+            
         }
 
         return springDecoder.decode(response.toBuilder().body(responseStr.getBytes()).build(), type);
