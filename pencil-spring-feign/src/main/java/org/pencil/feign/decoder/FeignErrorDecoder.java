@@ -3,6 +3,7 @@ package org.pencil.feign.decoder;
 import feign.RequestTemplate;
 import feign.Response;
 import feign.codec.ErrorDecoder;
+import io.prometheus.client.Counter;
 import lombok.extern.slf4j.Slf4j;
 import org.pencil.constant.Constant;
 import org.pencil.exception.PencilException;
@@ -15,6 +16,13 @@ import java.util.Optional;
  */
 @Slf4j
 public class FeignErrorDecoder implements ErrorDecoder {
+
+    private final Counter feignCounter;
+
+    public FeignErrorDecoder(Counter feignCounter) {
+        this.feignCounter = feignCounter;
+    }
+
     @Override
     public Exception decode(String s, Response response) {
         String reason = response.reason();
@@ -26,6 +34,11 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 requestTemplate.path(), response.status(), endTime - startTime, requestTemplate.queries(),
                 Optional.ofNullable(requestTemplate.body()).map(String::new).orElse(null),
                 requestTemplate.headers(), reason);
+        try {
+            feignCounter.labels(requestTemplate.path(), String.valueOf(response.status())).inc();
+        } catch (Exception e) {
+            log.warn("FeignErrorDecoder feign counter error", e);
+        }
 
         return PencilException.of(reason);
     }

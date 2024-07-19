@@ -2,6 +2,9 @@ package org.pencil.feign.config;
 
 import feign.Logger;
 import feign.codec.Decoder;
+import feign.codec.ErrorDecoder;
+import io.prometheus.client.Counter;
+import org.pencil.feign.decoder.FeignErrorDecoder;
 import org.pencil.feign.decoder.FeignResultDecoder;
 import org.pencil.feign.interceptor.ReqFeignInterceptor;
 import org.springframework.beans.factory.ObjectFactory;
@@ -9,11 +12,16 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.Resource;
+
 /**
  * @author pencil
  * @Date 24/06/29
  */
 public class ComFeignConfig {
+
+    @Resource
+    private Counter feignCounter;
 
     /**
      * NONE：不记录任何日志，默认值
@@ -28,12 +36,17 @@ public class ComFeignConfig {
 
     @Bean
     public Decoder feignResultDecoder(ObjectFactory<HttpMessageConverters> messageConverters){
-        return new FeignResultDecoder(new SpringDecoder(messageConverters));
+        return new FeignResultDecoder(new SpringDecoder(messageConverters), feignCounter);
     }
 
     @Bean
     public ReqFeignInterceptor reqFeignInterceptor(){
         return new ReqFeignInterceptor();
+    }
+
+    @Bean
+    public ErrorDecoder feignErrorDecoder() {
+        return new FeignErrorDecoder(feignCounter);
     }
 
 }
