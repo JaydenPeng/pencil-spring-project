@@ -2,7 +2,7 @@ package org.pencil.test.feign;
 
 import org.pencil.beans.resp.Result;
 import org.pencil.feign.config.ComFeignConfig;
-import org.pencil.test.beans.resp.dto.UserDto;
+import org.pencil.test.entity.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

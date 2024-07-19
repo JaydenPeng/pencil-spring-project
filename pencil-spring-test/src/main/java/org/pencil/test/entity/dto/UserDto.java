@@ -1,4 +1,4 @@
-package org.pencil.test.beans.resp.dto;
+package org.pencil.test.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

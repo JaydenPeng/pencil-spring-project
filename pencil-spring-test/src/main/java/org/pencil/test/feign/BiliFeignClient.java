@@ -1,7 +1,7 @@
 package org.pencil.test.feign;
 
 import org.pencil.feign.config.ComFeignConfig;
-import org.pencil.test.beans.resp.BiliNewsResp;
+import org.pencil.test.entity.resp.BiliNewsResp;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

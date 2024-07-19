@@ -1,4 +1,4 @@
-package org.pencil.test.beans.resp;
+package org.pencil.test.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
