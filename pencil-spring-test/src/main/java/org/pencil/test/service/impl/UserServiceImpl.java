@@ -1,7 +1,7 @@
 package org.pencil.test.service.impl;
 
-import org.pencil.test.beans.resp.BiliNewsResp;
-import org.pencil.test.beans.resp.dto.UserDto;
+import org.pencil.test.entity.dto.UserDto;
+import org.pencil.test.entity.resp.BiliNewsResp;
 import org.pencil.test.feign.BiliFeignClient;
 import org.pencil.test.service.UserService;
 import org.springframework.stereotype.Service;

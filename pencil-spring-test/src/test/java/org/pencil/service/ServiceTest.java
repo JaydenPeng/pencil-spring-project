@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.pencil.test.TestApplication;
-import org.pencil.test.beans.resp.BiliNewsResp;
+import org.pencil.test.entity.resp.BiliNewsResp;
 import org.pencil.test.feign.BiliFeignClient;
 import org.pencil.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
