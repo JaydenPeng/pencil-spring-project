@@ -16,6 +16,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(ThreadConfig.class)
 public @interface EnableThreadConfig {
-
-    String value() default "";
 }

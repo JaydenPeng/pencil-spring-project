@@ -1,4 +1,4 @@
-package org.pencil.beans.resp;
+package org.pencil.entity.resp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
