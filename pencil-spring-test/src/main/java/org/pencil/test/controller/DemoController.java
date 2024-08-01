@@ -2,7 +2,7 @@ package org.pencil.test.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.pencil.anno.ReqStatistics;
-import org.pencil.beans.resp.Result;
+import org.pencil.entity.resp.Result;
 import org.pencil.context.RequestContext;
 import org.pencil.test.entity.dto.UserDto;
 import org.pencil.test.entity.resp.BiliNewsResp;
@@ -59,5 +59,7 @@ public class DemoController {
     public Result<UserDto> getUserDto(@RequestParam("id") String id) {
         return Result.success(userService.getUserById(id));
     }
+
+
 
 }

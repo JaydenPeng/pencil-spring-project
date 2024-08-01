@@ -1,5 +1,6 @@
 package org.pencil.config;
 
+import org.pencil.config.decorator.PencilTaskDecorator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -44,6 +45,8 @@ public class ThreadConfig {
         executor.setThreadNamePrefix(threadNamePrefix);
         // 设置拒绝策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        // 添加装饰器
+        executor.setTaskDecorator(new PencilTaskDecorator());
         executor.initialize();
         return executor;
     }

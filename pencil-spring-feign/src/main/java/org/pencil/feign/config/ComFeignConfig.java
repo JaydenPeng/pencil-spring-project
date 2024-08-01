@@ -8,7 +8,9 @@ import org.pencil.feign.decoder.FeignErrorDecoder;
 import org.pencil.feign.decoder.FeignResultDecoder;
 import org.pencil.feign.interceptor.ReqFeignInterceptor;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 
@@ -35,8 +37,9 @@ public class ComFeignConfig {
     }
 
     @Bean
-    public Decoder feignResultDecoder(ObjectFactory<HttpMessageConverters> messageConverters){
-        return new FeignResultDecoder(new SpringDecoder(messageConverters), feignCounter);
+    public Decoder feignResultDecoder(ObjectFactory<HttpMessageConverters> messageConverters,
+                                      ObjectProvider<HttpMessageConverterCustomizer> customizers){
+        return new FeignResultDecoder(new SpringDecoder(messageConverters, customizers), feignCounter);
     }
 
     @Bean
