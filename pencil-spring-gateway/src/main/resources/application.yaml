@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: pencil-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: test-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/test/v1/**
+          filters:
+            - StripPrefix=2
+        - id: custom-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/test/v2/**
+          filters:
+            - StripPrefix=2
+            - name: CustomFilter
+              args:
+                authToken: "Bearer custom-token"

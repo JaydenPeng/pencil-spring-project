@@ -18,6 +18,7 @@
         <module>pencil-spring-thread</module>
         <module>pencil-spring-metrics</module>
         <module>pencil-spring-db</module>
+        <module>pencil-spring-gateway</module>
     </modules>
 
     <properties>

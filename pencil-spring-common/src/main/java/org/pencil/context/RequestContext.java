@@ -8,18 +8,20 @@ import org.pencil.entity.ComContext;
  */
 public class RequestContext {
 
-    private static final ThreadLocal<ComContext> contextHolder = new ThreadLocal<>();
+    private static final ThreadLocal<ComContext> CONTEXT_HOLDER = new ThreadLocal<>();
 
     public static ComContext get() {
-        return contextHolder.get();
+        return CONTEXT_HOLDER.get();
     }
 
     public static void set(ComContext context) {
-        contextHolder.set(context);
+        CONTEXT_HOLDER.set(context);
     }
 
     public static void clear() {
-        contextHolder.remove();
+        CONTEXT_HOLDER.remove();
     }
+
+    private RequestContext() {}
 
 }
