@@ -1,9 +1,12 @@
 package org.pencil.test.controller;
 
+import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.pencil.anno.ReqStatistics;
+import org.pencil.entity.dto.User;
 import org.pencil.entity.resp.Result;
 import org.pencil.context.RequestContext;
+import org.pencil.exception.PencilException;
 import org.pencil.test.entity.dto.UserDto;
 import org.pencil.test.entity.resp.BiliNewsResp;
 import org.pencil.test.feign.BiliFeignClient;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -60,6 +64,23 @@ public class DemoController {
         return Result.success(userService.getUserById(id));
     }
 
+    @GetMapping("ok")
+    public Boolean isOk(HttpServletRequest request) {
+        return true;
+    }
 
+    @GetMapping("error")
+    public Boolean errorInfo(HttpServletRequest request) {
+        throw PencilException.of("not ok");
+    }
+
+    @GetMapping("auth")
+    public User checkAuth(@RequestParam("token") String token) {
+        if ("123".equals(token)) {
+            return User.builder().id("1").name("zhangsan").expire(DateUtil.date().getTime()).build();
+        }
+
+        throw PencilException.of("token无效");
+    }
 
 }

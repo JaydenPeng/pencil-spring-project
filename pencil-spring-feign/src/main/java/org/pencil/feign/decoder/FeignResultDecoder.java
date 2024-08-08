@@ -1,5 +1,7 @@
 package org.pencil.feign.decoder;
 
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
 import feign.*;
 import feign.codec.Decoder;
 import io.prometheus.client.Counter;
@@ -43,7 +45,7 @@ public class FeignResultDecoder implements Decoder {
             log.debug("Feign请求调用\n请求url={}\n请求耗时={}ms\n请求参数={}\n请求body={}\n请求header={}\n响应结果={}",
                     requestTemplate.path(),endTime - startTime, requestTemplate.queries(),
                     Optional.ofNullable(requestTemplate.body()).map(String::new).orElse(null),
-                    requestTemplate.headers(),responseStr);
+                    requestTemplate.headers(), CharSequenceUtil.sub(responseStr, 0, 1024));
 
             try {
                 feignCounter.labels(requestTemplate.path(), String.valueOf(response.status())).inc();
