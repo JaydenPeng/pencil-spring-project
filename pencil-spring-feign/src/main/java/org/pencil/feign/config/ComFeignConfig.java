@@ -1,6 +1,7 @@
 package org.pencil.feign.config;
 
 import feign.Logger;
+import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.ErrorDecoder;
 import io.prometheus.client.Counter;
@@ -24,6 +25,17 @@ public class ComFeignConfig {
 
     @Resource
     private Counter feignCounter;
+
+    @Bean
+    public Retryer retryer() {
+        /*
+         * period：初始重试间隔时间，单位毫秒
+         * maxPeriod：最大重试间隔时间，单位毫秒
+         * maxAttempts：最大重试次数
+         */
+        return new Retryer.Default(100, 1000, 3);
+    }
+
 
     /**
      * NONE：不记录任何日志，默认值

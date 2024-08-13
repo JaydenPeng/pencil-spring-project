@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        # 默认全局设置
+        default:
+          # 读取超时时间, 单位毫秒
+          readTimeout: 5000
+          # 连接超时时间, 单位毫秒
+          connectTimeout: 5000
+        # 指定服务设置,这里的service1指的是@FeignClient(name = "LocalFeignClient")的value值,也是name值
+        service1:
+          # 读取超时时间, 单位毫秒
+          readTimeout: 5000
+          # 连接超时时间, 单位毫秒
+          connectTimeout: 5000
+      # 这里httpclient替换feign使用的jdk默认的http,改用httpclient5,当然要加pom
+      httpclient:
+        hc5:
+          enabled: true
+      compression:
+        request:
+          # 开启请求压缩
+          enabled: true
+          # 设置压缩支持的MIME类型
+          mime-types: text/xml,application/xml,application/json
+          # 设置压缩支持的最低压缩比
+          min-request-size: 2048
+        response:
+          # 开启响应压缩
+          enabled: true
