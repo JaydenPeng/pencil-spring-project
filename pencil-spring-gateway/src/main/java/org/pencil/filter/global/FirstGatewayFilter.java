@@ -2,6 +2,7 @@ package org.pencil.filter.global;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.pencil.constant.Constant;
 import org.pencil.entity.dto.User;
 import org.pencil.exception.GatewayException;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 全局过滤器,鉴权处理,token校验
@@ -34,7 +38,7 @@ public class FirstGatewayFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        boolean skip = Boolean.TRUE.equals(exchange.getAttribute("self-skip"));
+        boolean skip = Boolean.TRUE.equals(exchange.getAttribute(Constant.GATEWAY_SKIP));
         if (skip) {
             return chain.filter(exchange);
         }
@@ -63,22 +67,26 @@ public class FirstGatewayFilter implements GlobalFilter, Ordered {
                     if (user == null || CharSequenceUtil.isBlank(user.getId())) {
                         return Mono.error(GatewayException.of("Invalid token"));
                     } else {
-                        // 将 userId 放入请求头
-                        ServerHttpRequest mutatedRequest = request.mutate()
-                                .header("X-User-Id", user.getId())
-                                .header("X-User-Name", user.getName())
-                                .header("X-User-Expire", String.valueOf(user.getExpire()))
-                                .build();
-                        ServerWebExchange exchange1 = exchange.mutate().request(mutatedRequest).build();
 
-                        return chain.filter(exchange1);
+                        Map<String, String> headersToUpdate = exchange.getAttribute(Constant.HEADERS_TO_UPDATE);
+
+                        if (headersToUpdate == null) {
+                            headersToUpdate = new ConcurrentHashMap<>();
+                        }
+
+                        headersToUpdate.put("X-User-Id", user.getId());
+                        headersToUpdate.put("X-User-Name", user.getName());
+                        headersToUpdate.put("X-User-Expire", String.valueOf(user.getExpire()));
+
+                        exchange.getAttributes().put(Constant.HEADERS_TO_UPDATE, headersToUpdate);
+
+                        return chain.filter(exchange);
                     }
-                })
-                .then(chain.filter(exchange));
+                });
     }
 
     private HttpCookie extractTokenFromCookie(ServerHttpRequest request) {
-        return request.getCookies().getFirst("token");
+        return request.getCookies().getFirst(Constant.TOKEN);
     }
 
     private Mono<Void> unauthorized(ServerHttpResponse response) {

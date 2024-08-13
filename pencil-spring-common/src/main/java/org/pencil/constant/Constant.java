@@ -14,7 +14,17 @@ public final class Constant {
 
     public static final String USER_ID = "userid";
 
-    public static final String TRACE_ID = "traceid";
+    public static final String TRACE_ID = "X-Trace-Id";
+
+    public static final String TOKEN = "token";
+
+    public static final String SELF_SKIP = "X-Gw-Skip";
+
+    public static final String GATEWAY_SKIP = "gateway-skip";
+
+    public static final String OK = "ok";
+
+    public static final String HEADERS_TO_UPDATE = "headers-to-update";
 
     private Constant() {}
 }

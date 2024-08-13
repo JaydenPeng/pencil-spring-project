@@ -1,5 +1,6 @@
 package org.pencil.entity.resp;
 
+import cn.hutool.json.JSONUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,10 @@ public class Result<T> {
 
     public static <T> Result<T> error(Integer code, String msg) {
         return new Result<>(code, msg, null);
+    }
+
+    public String toJson() {
+        return JSONUtil.toJsonStr(this);
     }
 
 }
