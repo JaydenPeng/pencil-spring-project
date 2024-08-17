@@ -61,7 +61,7 @@ public class DemoController {
 
     @GetMapping("mock")
     public Result<UserDto> getUserDto(@RequestParam("id") String id) {
-        return Result.success(userService.getUserById(id));
+        return Result.success(userService.getUserInfoById(id));
     }
 
     @GetMapping("ok")
@@ -81,6 +81,11 @@ public class DemoController {
         }
 
         throw PencilException.of("token无效");
+    }
+
+    @GetMapping("getById")
+    public UserDto getUser(String id) {
+        return userService.getUserById(id);
     }
 
 }

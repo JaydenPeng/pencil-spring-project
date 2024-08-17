@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(String userId) {
+        return UserDto.builder().id("1").name("lisi").age(20).phone("13899999999").build();
+    }
+
+    @Override
+    public UserDto getUserInfoById(String userId) {
         if ("1".equals(userId)) {
             return UserDto.builder().id("1").name("pencil").age(18).phone("13888888888").build();
         }
@@ -27,6 +32,10 @@ public class UserServiceImpl implements UserService {
         return UserDto.builder().id("1").name("lisi").age(20).phone("13888888888").build();
     }
 
+    /*
+     * @param time the time
+     * @return
+     */
     @Override
     public BiliNewsResp getBiliNews(String time) {
 
@@ -36,4 +45,5 @@ public class UserServiceImpl implements UserService {
 
         return resp;
     }
+
 }
