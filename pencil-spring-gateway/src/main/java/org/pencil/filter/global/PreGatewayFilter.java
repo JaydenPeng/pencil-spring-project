@@ -1,7 +1,6 @@
 package org.pencil.filter.global;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Summary;
 import lombok.AllArgsConstructor;

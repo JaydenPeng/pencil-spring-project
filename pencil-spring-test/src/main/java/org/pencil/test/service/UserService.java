@@ -20,6 +20,15 @@ public interface UserService {
     UserDto getUserById(String userId);
 
     /**
+     * Gets user info by id.
+     *
+     * @param userId the user id
+     * @return the user info by id
+     */
+    UserDto getUserInfoById(String userId);
+
+
+    /**
      * Gets bili news.
      *
      * @param time the time
