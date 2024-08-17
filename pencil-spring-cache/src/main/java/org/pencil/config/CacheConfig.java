@@ -16,16 +16,16 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 public class CacheConfig {
 
-    @Value("${cache.spring.expire:10}")
+    @Value("${pencil.cache.spring.expire:10}")
     private int springCacheExpire;
 
-    @Value("${cache.spring.size:10000}")
+    @Value("${pencil.cache.spring.size:10000}")
     private int springCacheSize;
 
-    @Value("${cache.caffeine.expire:10}")
+    @Value("${pencil.cache.caffeine.expire:10}")
     private int caffeineExpire;
 
-    @Value("${cache.caffeine.size:10000}")
+    @Value("${pencil.cache.caffeine.size:10000}")
     private int caffeineSize;
 
     /**
