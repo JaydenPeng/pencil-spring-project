@@ -19,6 +19,7 @@
         <module>pencil-spring-metrics</module>
         <module>pencil-spring-db</module>
         <module>pencil-spring-gateway</module>
+        <module>pencil-spring-kafka</module>
     </modules>
 
     <properties>
