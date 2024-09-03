@@ -1,10 +1,15 @@
 package org.pencil.config;
 
+import org.pencil.queue.DelayedQueueService;
+import org.pencil.subscriber.RedisSubscriber;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -32,6 +37,30 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         return template;
+    }
+
+    @Bean
+    public DelayedQueueService delayedQueueService(RedisTemplate<String, Object> redisTemplate) {
+        return new DelayedQueueService(redisTemplate);
+    }
+
+    @Bean
+    public RedisSubscriber redisSubscriber() {
+        return new RedisSubscriber();
+    }
+
+    @Bean
+    public MessageListenerAdapter listenerAdapter(RedisSubscriber redisSubscriber) {
+        return new MessageListenerAdapter(redisSubscriber, "receiveMessage");
+    }
+
+    @Bean
+    public RedisMessageListenerContainer container(RedisConnectionFactory factory,
+                                                   MessageListenerAdapter listenerAdapter) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(factory);
+        container.addMessageListener(listenerAdapter, new ChannelTopic("PencilChannel"));
+        return container;
     }
 
 }
