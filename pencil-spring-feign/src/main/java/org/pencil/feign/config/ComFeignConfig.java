@@ -2,17 +2,8 @@ package org.pencil.feign.config;
 
 import feign.Logger;
 import feign.Retryer;
-import feign.codec.Decoder;
-import feign.codec.ErrorDecoder;
 import io.prometheus.client.Counter;
-import org.pencil.feign.decoder.FeignErrorDecoder;
-import org.pencil.feign.decoder.FeignResultDecoder;
-import org.pencil.feign.interceptor.ReqFeignInterceptor;
-import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
+import io.prometheus.client.Histogram;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.Resource;
@@ -25,6 +16,9 @@ public class ComFeignConfig {
 
     @Resource
     private Counter feignCounter;
+
+    @Resource
+    private Histogram feignHistogram;
 
     @Bean
     public Retryer retryer() {
@@ -48,6 +42,16 @@ public class ComFeignConfig {
         return Logger.Level.FULL;
     }
 
+    /**
+     * 自定义Feign日志记录器
+     * @return Feign日志记录器
+     */
+    @Bean
+    public Logger getFeignLogger() {
+        return new ComFeignLogger(feignCounter, feignHistogram);
+    }
+
+    /* 解码器
     @Bean
     public Decoder feignResultDecoder(ObjectFactory<HttpMessageConverters> messageConverters,
                                       ObjectProvider<HttpMessageConverterCustomizer> customizers){
@@ -63,5 +67,6 @@ public class ComFeignConfig {
     public ErrorDecoder feignErrorDecoder() {
         return new FeignErrorDecoder(feignCounter);
     }
+    */
 
 }
